@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@socket.io/cluster-adapter": "^0.2.2",
+    "@socket.io/sticky": "^1.0.4",
+    "socket.io": "^4.8.1"
+  }
+}
