@@ -18,6 +18,8 @@ const socketMain = (io) => {
     socket.on("performanceData", (data) => {
       console.log("Tick...");
       console.log(data);
+
+      io.to("react-client").emit("performanceData", data);
     });
   });
 };
