@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import { cpus } from "os";
 import { setupMaster, setupWorker } from "@socket.io/sticky";
 import { createAdapter, setupPrimary } from "@socket.io/cluster-adapter";
+import socketMain from "./socketMain.js";
 
 const numCPUs = cpus().length;
 
@@ -42,9 +43,5 @@ if (cluster.isPrimary) {
 
   setupWorker(io);
 
-  io.on("connection", (socket) => {
-    console.log(`Someone connected on worker ${process.pid}`);
-
-    socket.emit("welcome", "Welcome!!!");
-  });
+  socketMain(io);
 }

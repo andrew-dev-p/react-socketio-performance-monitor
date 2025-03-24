@@ -1,10 +1,40 @@
 import os from "os";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const options = {
+  auth: {
+    token: "some-token",
+  },
+};
+
+const socket = io("http://localhost:3000", options);
 
 socket.on("connect", () => {
-  console.log("connected to the server");
+  const networkInterfaces = os.networkInterfaces();
+
+  let macA;
+
+  for (let key in networkInterfaces) {
+    const currentNetworkInterface = networkInterfaces[key][0];
+
+    const isInternetFacing = !currentNetworkInterface.internal;
+
+    if (isInternetFacing) {
+      macA = currentNetworkInterface.mac;
+    }
+  }
+
+  const performanceDataInterval = setInterval(async () => {
+    const performanceData = await performanceLoadData();
+
+    performanceData.macA = macA;
+
+    socket.emit("performanceData", performanceData);
+  }, 1000);
+
+  socket.on("disconnect", () => {
+    clearInterval(performanceDataInterval);
+  });
 });
 
 const cpuAvg = () => {
@@ -41,7 +71,7 @@ const getCpuLoad = () =>
     }, 100);
   });
 
-const performaceLoadData = () =>
+const performanceLoadData = () =>
   new Promise(async (resolve, reject) => {
     const osType = os.type();
 
@@ -74,11 +104,3 @@ const performaceLoadData = () =>
       cpuLoad,
     });
   });
-
-const run = async () => {
-  const data = await performaceLoadData();
-
-  console.log(data);
-};
-
-run();
