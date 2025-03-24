@@ -2,7 +2,11 @@ import { useRef } from "react";
 import drawCircle from "../lib/canvasLoadAnimation";
 import { WidgetData } from "../types";
 
-const Mem = ({ data }: { data: WidgetData }) => {
+const Mem = ({
+  data,
+}: {
+  data: Pick<WidgetData, "freeMem" | "memUseage" | "totalMem" | "usedMem">;
+}) => {
   const { freeMem, memUseage, totalMem, usedMem } = data;
 
   const memRef = useRef<HTMLCanvasElement>(null);

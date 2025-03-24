@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import socket from "./lib/socketConnection";
 import Widget from "./components/Widget/Widget";
 import { WidgetData } from "./types";
@@ -9,25 +9,23 @@ interface PerformanceData {
 
 const App = () => {
   const [performanceData, setPerformanceData] = useState<PerformanceData>({});
-  const performanceMachineData = useMemo<PerformanceData>(() => ({}), []);
 
   useEffect(() => {
     socket.on("performanceData", (data) => {
-      performanceMachineData[data.macA] = data;
+      setPerformanceData((prevData) => ({
+        ...prevData,
+        [data.macA]: data,
+      }));
     });
-  }, [performanceMachineData]);
 
-  useEffect(() => {
-    setInterval(() => {
-      setPerformanceData(performanceMachineData);
-    }, 1000);
-  }, [performanceMachineData]);
+    return () => {
+      socket.off("performanceData");
+    };
+  }, []);
 
-  const widgets = useMemo(() => {
-    return Object.values(performanceData).map((d) => (
-      <Widget data={d} key={d.macA} />
-    ));
-  }, [performanceData]);
+  const widgets = Object.values(performanceData).map((d) => (
+    <Widget data={d} key={d.macA} />
+  ));
 
   return <div className="container">{widgets}</div>;
 };

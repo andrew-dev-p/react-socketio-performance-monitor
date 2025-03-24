@@ -8,8 +8,4 @@ const options = {
 
 const socket = io("http://localhost:3000", options);
 
-socket.on("welcome", (data) => {
-  console.log(data);
-});
-
 export default socket;

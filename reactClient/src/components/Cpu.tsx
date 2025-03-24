@@ -2,7 +2,7 @@ import { useRef } from "react";
 import drawCircle from "../lib/canvasLoadAnimation";
 import { WidgetData } from "../types";
 
-const Cpu = ({ data }: { data: WidgetData }) => {
+const Cpu = ({ data }: { data: Pick<WidgetData, "cpuLoad"> }) => {
   const canvasEl = useRef<HTMLCanvasElement>(null);
   if (canvasEl.current) {
     drawCircle(canvasEl.current, data.cpuLoad);

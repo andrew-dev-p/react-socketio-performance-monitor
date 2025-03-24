@@ -39,7 +39,7 @@ const Widget = ({ data }: { data: WidgetData }) => {
         setIsAlive(isAlive);
       }
     });
-  }, []);
+  }, [macA]);
 
   return (
     <div className="widget row justify-content-evenly">

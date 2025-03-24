@@ -1,7 +1,14 @@
 import moment from "moment";
 import { WidgetData } from "../types";
 
-const Info = ({ data }: { data: WidgetData }) => {
+const Info = ({
+  data,
+}: {
+  data: Pick<
+    WidgetData,
+    "osType" | "upTime" | "cpuType" | "numCores" | "cpuSpeed"
+  >;
+}) => {
   return (
     <div className="col-sm-3 col-sm-offset-1 cpu-info">
       <h3>Operating System</h3>
