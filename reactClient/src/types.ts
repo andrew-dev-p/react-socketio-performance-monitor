@@ -2,7 +2,7 @@ export interface WidgetData {
   freeMem: number;
   totalMem: number;
   usedMem: number;
-  memUseage: number;
+  memUsage: number;
   osType: string;
   upTime: number;
   cpuType: string;

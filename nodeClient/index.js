@@ -82,7 +82,7 @@ const performanceLoadData = () =>
     const freeMem = os.freemem();
 
     const usedMem = totalMem - freeMem;
-    const memUsage = Math.floor(usedMem.totalMem * 100) / 100;
+    const memUsage = 1 - Math.floor((usedMem / totalMem) * 100) / 100;
 
     const cpus = os.cpus();
     const cpuType = cpus[0].model;

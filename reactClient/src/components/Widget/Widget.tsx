@@ -13,7 +13,7 @@ const Widget = ({ data }: { data: WidgetData }) => {
     freeMem,
     totalMem,
     usedMem,
-    memUseage,
+    memUsage,
     osType,
     upTime,
     cpuType,
@@ -24,7 +24,7 @@ const Widget = ({ data }: { data: WidgetData }) => {
   } = data;
 
   const cpuData = { cpuLoad };
-  const memData = { freeMem, totalMem, usedMem, memUseage };
+  const memData = { freeMem, totalMem, usedMem, memUsage };
   const infoData = { macA, osType, upTime, cpuType, cpuSpeed, numCores };
 
   const notAliveDiv = !isAlive ? (
