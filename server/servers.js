@@ -32,7 +32,11 @@ if (cluster.isPrimary) {
   console.log(`Worker ${process.pid} started`);
 
   const httpServer = http.createServer();
-  const io = new Server(httpServer);
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "http://localhost:5174",
+    },
+  });
 
   io.adapter(createAdapter());
 
